@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    docker.build('ymgfinal')
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                // Test komutlarınızı buraya ekleyin
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    docker.withRegistry('', 'dockerhub-credentials') {
+                        docker.image('ymgfinal').push()
+                    }
+                }
+            }
+        }
+    }
+}
